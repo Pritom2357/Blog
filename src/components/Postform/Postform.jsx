@@ -27,10 +27,9 @@ function Postform({post}) {
 
   const submit = async(data) =>{
     if(post){
-      localStorage.removeItem("postFormData");
       console.log("data ", data);
       console.log("post ", post);
-      //TODO: replace null with a default image - done
+      //TODO: replace null with a default image
       const file = data.image[0]?await appwriteService.uploadFile(data.image[0]):await appwriteService.defaultImage();
 
       if(file){
@@ -88,21 +87,6 @@ function Postform({post}) {
       subscription.unsubscribe();
     }
   },[watch, slugTransform, setValue])
-
-  useEffect(() => {
-    const savedData = localStorage.getItem("postFormData");
-    if (savedData) {
-      reset(JSON.parse(savedData));
-    }
-  }, [reset]);
-
-  useEffect(() => {
-    const subscription = watch((value) => {
-      localStorage.setItem("postFormData", JSON.stringify(value));
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
-
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap bg-slate-100">
             <div className="md:w-2/3 px-2">
