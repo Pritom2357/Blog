@@ -17,7 +17,7 @@ export default function Allposts() {
         })
     }, [])
 
-    console.log(posts);
+    // console.log(posts);
     
 
   return posts.length!==0?(
